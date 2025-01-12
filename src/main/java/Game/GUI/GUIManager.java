@@ -23,7 +23,7 @@ public class GUIManager {
     }
 
     private void renderText(){
-        textRenderer.renderText("SCORE: 0", new Vector2f(8, 788), new Vector2f(128, 128), window.getProjection(), new Matrix4f().identity());
+        textRenderer.renderText("Coins: 0", new Vector2f(8, 788), new Vector2f(128, 128), window.getProjection(), new Matrix4f().identity());
     }
 
     private void renderIcons(){

@@ -1,26 +1,35 @@
 package Game.Mapa;
 
+import Utils.MapPath;
+import org.joml.Matrix4f;
+import org.joml.Vector2f;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Map {
 
-    private final int WIDTH;
-    private final int HEIGHT;
+    private final int LAYERS = 2; // how many layers of tiles the map will have.
+    List<MapLayer> mapLayers = new ArrayList<>();
 
-    public Map(int width, int height){
+    // (mapFile     -> JsonFile containing information about position and Id of each tile in each layer)
+    // (layerTextureMap -> Map<layer, texture)
+    public Map(String mapFile, java.util.Map<Integer, Integer> layerTextureMap, Vector2f textureSize, float spriteGlobalScale){
 
-        this.WIDTH = width;
-        this.HEIGHT = height;
+        int firtTexture = layerTextureMap.get(MapLayer.MapLayerIndexValues.FIRST_LAYER);
+        int secondTexture = layerTextureMap.get(MapLayer.MapLayerIndexValues.SECOND_LAYER);
+
+        MapLayer firstLayer  = new MapLayer(MapLayer.MapLayerIndexValues.FIRST_LAYER , mapFile, firtTexture, textureSize, spriteGlobalScale);
+        MapLayer secondLayer = new MapLayer(MapLayer.MapLayerIndexValues.SECOND_LAYER, mapFile, secondTexture, textureSize, spriteGlobalScale);
+
+        mapLayers.add(firstLayer);
+        mapLayers.add(secondLayer);
     }
 
-    public void loadMapFromFile(String filePath){
+    public void render(Matrix4f projection, Matrix4f view){
 
-    }
-
-    public void render(){
-
-        // Render first layer of sprites.
-        // Render second layer of sprites.
-
-        // First layer will be the base map tiles like grass, rocks, rivers. And the second one will be sprites like trees, some interactive plants.
-
+        mapLayers.forEach(mapLayer -> {
+            mapLayer.render(projection, view);
+        });
     }
 }

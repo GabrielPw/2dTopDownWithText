@@ -30,13 +30,13 @@ public class Player extends PrimitiveEntity{
         // a janela tem (800, 800)
 
         healthPoints = 100.f;
-        speed        = 0.125f;
+        speed        = 2.5f;
 
         position.x = 200.f;
         position.y = 200.f;
 
         this.texture = TextureLoader.loadTexture(texturePath);
-        this.animationManager = new AnimationManager(8, 0, 16, 12);
+        this.animationManager = new AnimationManager(3, 0, 16, 3);
     }
 
     public void render() {
@@ -81,41 +81,42 @@ public class Player extends PrimitiveEntity{
 
         shader.addUniformMatrix4fv("model", model);
 
-        animationManager.setQuantityFrames(1);
+        animationManager.setQuantityFrames(3);
         animationManager.play(frameCount);
     }
 
     private void move(Window window, float deltaTime){
         Vector2f direction = new Vector2f(0, 0);
 
-        //System.out.println("DeltaTime: " + deltaTime);
+        int framesPerSecond = 1;
         if (window.isKeyPressed(GLFW.GLFW_KEY_W)) {
             isMoving = true;
-            animationManager.setActualAnimation(ActualAnimation.WALKING_UP, 8);
+            animationManager.setActualAnimation(ActualAnimation.WALKING_UP, 3);
             direction.y += 1;
         }
         if (window.isKeyPressed(GLFW.GLFW_KEY_S)) {
             isMoving = true;
-            animationManager.setFramesPerSecond(12);
-            animationManager.setActualAnimation(ActualAnimation.WALKING_DOWN_REDUCED, 8);
+            animationManager.setFramesPerSecond(framesPerSecond);
+            animationManager.setActualAnimation(0, 3);
             direction.y -= 1;
         }
         if (window.isKeyPressed(GLFW.GLFW_KEY_A)) {
             isMoving = true;
-            animationManager.setFramesPerSecond(6);
-            animationManager.setActualAnimation(ActualAnimation.WALKING_RIGHT, 10);
+            animationManager.setFramesPerSecond(framesPerSecond);
+            animationManager.setActualAnimation(ActualAnimation.WALKING_RIGHT, 3);
             direction.x -= 1;
         }
         if (window.isKeyPressed(GLFW.GLFW_KEY_D)) {
             isMoving = true;
-            animationManager.setFramesPerSecond(6);
-            animationManager.setActualAnimation(ActualAnimation.WALKING_LEFT, 10);
+            animationManager.setFramesPerSecond(framesPerSecond);
+            animationManager.setActualAnimation(ActualAnimation.WALKING_LEFT, 3);
             direction.x += 1;
         }
 
         if (direction.length() > 0) {
             direction.normalize();
-            position.add(direction.mul(speed * deltaTime));
+            position.add(direction.mul(speed));
         }
     }
+
 }

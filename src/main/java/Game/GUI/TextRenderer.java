@@ -68,8 +68,12 @@ public class TextRenderer {
     public void renderText(String text, Vector2f position, Vector2f bitmapDimensions, Matrix4f projection, Matrix4f view){
 
         this.position = position;
-
         int numOfGliphs = text.length();
+
+        if (numOfGliphs > MAX_CHARACTERS_QUANTITY){
+            throw new RuntimeException("Texto a ser renderizado excede a quantidade máxima de caracteres permitidos (" + MAX_CHARACTERS_QUANTITY + ")");
+        }
+
         FloatBuffer verticesBuffer = BufferUtils.createFloatBuffer( Primitives.squareVertices.length * 4 * numOfGliphs);
         IntBuffer indicesBuffer = BufferUtils.createIntBuffer(Primitives.squareIndices.length * numOfGliphs);
 
@@ -77,11 +81,10 @@ public class TextRenderer {
         for (char letter : text.toCharArray()) {
 
             GlyphData glyph = glyphMap.get(letter);
-            System.out.println("i: id:" + ((int) 'i') + " - " + glyph.x);
 
             float paddingXForLetterIAndL =
                 (letter == 'i' || letter == 'l' || letter == 'L' || letter == 'I' || letter == '.')
-                ? 0.95f / bitmapDimensions.x: 0;
+                ? 1.90f / bitmapDimensions.x: 0;
 
 
             float u1 = glyph.x / (float) bitmapDimensions.x - paddingXForLetterIAndL;

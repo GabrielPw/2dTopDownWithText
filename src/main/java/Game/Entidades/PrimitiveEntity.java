@@ -78,4 +78,8 @@ abstract class PrimitiveEntity {
     }
 
     protected void update(Window window, float frameCount, Matrix4f view, Matrix4f projection){}
+
+    public Vector2f getPosition() {
+        return position;
+    }
 }

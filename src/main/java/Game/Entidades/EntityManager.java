@@ -13,7 +13,7 @@ public class EntityManager {
 
     float spriteGlobalScale;
     NPC regularNPC = new NPC(TexturePaths.ANNE_NPC);
-    Player player = new Player(TexturePaths.MOKKO_PLAYER);
+    Player player = new Player(TexturePaths.JOE01);
 
     public EntityManager(float spriteGlobalScale){
 
@@ -32,5 +32,9 @@ public class EntityManager {
                 entity.render();
             }
         );
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }
