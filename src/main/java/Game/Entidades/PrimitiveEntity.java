@@ -14,7 +14,7 @@ import org.lwjgl.opengl.GL30;
 
 import java.nio.FloatBuffer;
 
-abstract class PrimitiveEntity {
+public abstract class PrimitiveEntity {
 
     protected Vector2f position;
     protected Vector2f scale;
@@ -35,7 +35,6 @@ abstract class PrimitiveEntity {
         scale    = new Vector2f(1.f, 1.f);
         model = new Matrix4f().identity();
 
-        createBuffers();
     }
 
     public void render() {
@@ -49,7 +48,7 @@ abstract class PrimitiveEntity {
         GL30.glBindVertexArray(0);
     }
 
-    private void createBuffers(){
+    protected void createBuffers(){
 
         VAO = GL30.glGenVertexArrays();
         GL30.glBindVertexArray(VAO);
@@ -69,7 +68,7 @@ abstract class PrimitiveEntity {
         EBO = new EBO(Primitives.squareIndices, GL30.GL_STATIC_DRAW);
 
         GL30.glVertexAttribPointer(0, 2, GL11.GL_FLOAT, false, 4 * Float.BYTES, 0);
-        GL30.glVertexAttribPointer(1, 2, GL11.GL_FLOAT, false, 4 * Float.BYTES, 2 * Float.BYTES); // Color
+        GL30.glVertexAttribPointer(1, 2, GL11.GL_FLOAT, false, 4 * Float.BYTES, 2 * Float.BYTES); // TextureCoords
 
         GL30.glEnableVertexAttribArray(0);
         GL30.glEnableVertexAttribArray(1);

@@ -21,7 +21,6 @@ public class AnimationManager {
 
     public void play(float deltaTime){
 
-        System.out.println("FrameCount: " + deltaTime);
         elapsedTime += deltaTime;
         if (elapsedTime >= frameTime) {
             actualFrame = (actualFrame + 1) % quantityFrames;

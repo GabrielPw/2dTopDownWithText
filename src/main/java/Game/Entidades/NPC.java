@@ -20,6 +20,7 @@ public class NPC extends PrimitiveEntity{
 
         super(new Shader("player.vert", "player.frag"));
 
+        createBuffers();
         this.texture = TextureLoader.loadTexture(texturePath);
         this.animationManager = new AnimationManager(8, 0, 16, 12);
 

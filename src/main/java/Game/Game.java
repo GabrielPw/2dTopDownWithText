@@ -19,23 +19,23 @@ import static org.lwjgl.opengl.GL11.glViewport;
 
 public class Game {
 
-    Map firstMap;
-    GUIManager guiManager;
+    private Map firstMap;
+    private GUIManager guiManager;
     int fontTexture;
     private Shader fontShader;
     private TextRenderer textRenderer;
 
-    Matrix4f cameraView;
+    private Matrix4f cameraView;
     private Vector2f cameraPosition = new Vector2f(0, 0);
     private float cameraSpeed = 5.0f;
 
-    EntityManager entityManager;
-    Window window;
-    double previousTime;
-    double frameTimeAccumulator;
-    int frameCount;
+    private EntityManager entityManager;
+    private Window window;
+    private double previousTime;
+    private double frameTimeAccumulator;
+    private int frameCount;
 
-    float spriteGlobalScale = 64.f;
+    private float spriteGlobalScale = 64.f;
     public Game(String windowTile, int winWidth, int winHeight){
         Matrix4f projection = new Matrix4f();
 
@@ -67,7 +67,6 @@ public class Game {
         fontTexture = TextureLoader.loadTexture(FontsPath.BITMAP_FRANKLIN_GOTHIC_MEDIUM);
         textRenderer = new TextRenderer(fontTexture, FontsPath.FNTINFO_FRANKLIN_GOTHIC_MEDIUM, fontShader);
         guiManager = new GUIManager(window, textRenderer);
-        fontShader = new Shader("text.vert", "text.frag");
         cameraView = new Matrix4f().identity();
 
         java.util.Map<Integer, Integer> layerIndexAndTexture = new HashMap<>();
@@ -101,18 +100,9 @@ public class Game {
             cameraPosition.lerp(new Vector2f(playerPosition.x - window.getWidth() / 2, playerPosition.y - window.getHeight() / 2), deltaTime * cameraSpeed);
             cameraView.identity().translate(-cameraPosition.x, -cameraPosition.y, 0);
 
-            firstMap.render(window.getProjection(), cameraView);
+            firstMap.render(window.getProjection(), cameraView, deltaTime);
             entityManager.renderEntities(window, frameCount, cameraView, window.getProjection());
-            guiManager.render();
-
-            if(window.isKeyPressed(GLFW_KEY_LEFT_SHIFT)){
-                System.out.println("Pressionou!!!");
-                window.setZoom(window.getZoom() + 0.1f);
-                window.updateProjectionMatrix();
-            } else if (window.isKeyPressed(GLFW_KEY_LEFT_CONTROL)){
-                window.setZoom(window.getZoom() - 0.1f);
-                window.updateProjectionMatrix();
-            }
+            guiManager.render(entityManager.getPlayer());
 
             glfwPollEvents();
             glfwSwapBuffers(window.getID());

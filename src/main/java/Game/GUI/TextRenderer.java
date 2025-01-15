@@ -171,6 +171,10 @@ public class TextRenderer {
         }
     }
 
+    public Shader getShader() {
+        return shader;
+    }
+
     public void setTextColor(Vector3f textColor) {this.textColor = textColor;}
     public void setTextSize(int textSize) {this.textSize = textSize;}
 }

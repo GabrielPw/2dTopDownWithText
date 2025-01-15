@@ -29,11 +29,12 @@ public class Player extends PrimitiveEntity{
 
         // a janela tem (800, 800)
 
+        createBuffers();
         healthPoints = 100.f;
-        speed        = 2.5f;
+        speed        = 7.8f;
 
-        position.x = 200.f;
-        position.y = 200.f;
+        position.x =  1900.f;
+        position.y = -0.f;
 
         this.texture = TextureLoader.loadTexture(texturePath);
         this.animationManager = new AnimationManager(3, 0, 16, 3);

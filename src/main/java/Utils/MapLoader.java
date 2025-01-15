@@ -9,6 +9,7 @@ import org.joml.Vector2f;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MapLoader {
@@ -31,10 +32,12 @@ public class MapLoader {
             int width = mapData.get("width").getAsInt();
             int height = mapData.get("height").getAsInt();
 
+            System.out.println("------ MAPLOADER (loadMap) ------");
+
             System.out.println("\nMap Width: " + width);
             System.out.println("Map Height: " + height);
 
-            System.out.println("----\n\n");
+            System.out.println("------ END MAPLOADER ------\n\n");
 
             int totalTiles = width * height;
 
@@ -48,12 +51,10 @@ public class MapLoader {
                 tiles.put(position, tile);
             }
 
-            tiles.get(new Vector2f(1, 0)).printInfo();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
         return tiles;
     }
-    
+
 }
